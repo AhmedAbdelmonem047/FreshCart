@@ -15,12 +15,12 @@ export class CartService {
   constructor(private _HttpClient: HttpClient, @Inject(PLATFORM_ID) Id: object) {
     if (isPlatformBrowser(Id)) {
       this.token = { token: localStorage.getItem('userToken') || '' };
+      this.getUserCart().subscribe({
+        next: (res) => {
+          this.cartTotalItems.next(res.numOfCartItems);
+        }
+      })
     }
-    this.getUserCart().subscribe({
-      next: (res) => {
-        this.cartTotalItems.next(res.numOfCartItems);
-      }
-    })
   }
 
   addProductToCart(productId: string): Observable<any> {

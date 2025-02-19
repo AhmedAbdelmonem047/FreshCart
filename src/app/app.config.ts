@@ -11,7 +11,7 @@ import { IMAGE_CONFIG } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()), provideHttpClient(withFetch()),
-  importProvidersFrom(RouterModule, BrowserAnimationsModule, Router),
+  importProvidersFrom(RouterModule, BrowserAnimationsModule, Router, SweetAlert2Module.forRoot()),
   {
     provide: IMAGE_CONFIG,
     useValue: {

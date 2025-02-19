@@ -2,7 +2,7 @@ import { MainLayoutComponent } from './features/layout/main-layout/main-layout.c
 import { SignupComponent } from './features/auth/signup/signup.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { AuthLayoutComponent } from './features/layout/auth-layout/auth-layout.component';
-import { Routes, CanActivateFn } from '@angular/router';
+import { Routes } from '@angular/router';
 import { HomeComponent } from './features/pages/home/home.component';
 import { CartComponent } from './features/pages/cart/cart.component';
 import { ProductsComponent } from './features/pages/products/products.component';
