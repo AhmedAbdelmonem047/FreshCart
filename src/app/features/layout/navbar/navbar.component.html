@@ -1,0 +1,87 @@
+<nav class="border-gray-200 bg-slate-200 dark:bg-gray-900">
+    <div class="flex flex-wrap items-center justify-between p-4 mx-auto max-w-screen-2xl">
+        <a href="" class="flex items-center mt-2 space-x-3 rtl:space-x-reverse">
+            <img src="assets/images/freshcart-logo.svg" alt="Website Logo">
+        </a>
+        <div class="flex flex-row-reverse items-center">
+            <button data-collapse-toggle="navbar-default" type="button"
+                class="items-center justify-center block w-10 h-10 p-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+            @if (isLoggedIn) {
+            <a routerLink="/cart" routerLinkActive="bg-green-700 rounded-xl text-white"
+                class="relative block px-3 py-2 mt-px text-gray-800 duration-200 rounded-lg lg:hidden hover:bg-green-600 hover:text-white hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">
+                <i class="fa fa-shopping-cart"></i>
+                <div
+                class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                20</div>
+            </a>
+            }
+        </div>
+
+        <div class="items-center justify-between flex-grow hidden w-full ps-5 lg:flex lg:w-auto" id="navbar-default">
+            <ul
+                class="flex flex-col p-4 mt-4 space-y-2 font-medium border border-gray-100 rounded-lg lg:p-0 lg:flex-row lg:space-x-4 lg:space-y-0 rtl:space-x-reverse lg:mt-3 lg:border-0 dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <a routerLink="/home" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="block px-3 py-2 text-gray-900 duration-200 rounded-lg hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">Home</a>
+                </li>
+                <li>
+                    <a routerLink="/products" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="block px-3 py-2 text-gray-900 duration-200 rounded-lg hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">Products</a>
+                </li>
+                <li>
+                    <a routerLink="/categories" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="block px-3 py-2 text-gray-900 duration-200 rounded-lg hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">Categories</a>
+                </li>
+                <li>
+                    <a routerLink="/brands" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="block px-3 py-2 text-gray-900 duration-200 rounded-lg hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">Brands</a>
+                </li>
+            </ul>
+            <ul
+                class="flex flex-col p-4 mt-4 space-y-2 font-medium border border-gray-100 rounded-lg ms-auto lg:p-0 lg:flex-row lg:space-x-3 lg:space-y-0 rtl:space-x-reverse lg:mt-3 lg:border-0 dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
+                @if (isLoggedIn) {
+                <li class="flex items-center justify-around space-x-4">
+                    <i class="duration-200 hover:text-green-600 fab fa-instagram" role="button"></i>
+                    <i class="duration-200 hover:text-green-600 fab fa-facebook" role="button"></i>
+                    <i class="duration-200 hover:text-green-600 fab fa-tiktok" role="button"></i>
+                    <i class="duration-200 hover:text-green-600 fab fa-twitter" role="button"></i>
+                    <i class="duration-200 hover:text-green-600 fab fa-linkedin" role="button"></i>
+                    <i class="duration-200 hover:text-green-600 fab fa-youtube" role="button"></i>
+                </li>
+
+                <li>
+                    <a routerLink="/cart" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="relative hidden px-5 py-2 text-gray-900 duration-200 rounded-lg hoi lg:block hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">
+                        <i class="fa fa-shopping-cart"></i>
+                        <div
+                        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                        {{cartTotalItems}}</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a (click)="getLogoutFn()" role="button" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="block py-2 text-center text-gray-900 duration-200 rounded-lg ps-2 pe-2 hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0">Logout</a>
+                </li>
+                }@else {
+                <li>
+                    <a routerLink="/login" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="block px-1 py-1 text-gray-900 duration-200 rounded-lg hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">Login</a>
+                </li>
+                <li>
+                    <a routerLink="/signup" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="block px-3 py-2 text-gray-900 duration-200 rounded-lg hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">Signup</a>
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

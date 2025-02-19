@@ -1,0 +1,38 @@
+<div class="lg:w-[80%] flex flex-col items-center lg:flex-row mx-auto mt-14 ">
+    <div class="w-1/2 p-5 lg:w-2/5">
+        <!-- <img [src]="productDetails.imageCover" class="w-full" [alt]="productDetails.title"> -->
+        <owl-carousel-o [options]="customOptions">
+            @for (image of productDetails.images; track $index) {
+            <ng-template carouselSlide><img [src]="image" class="w-full" [alt]="productDetails.title"></ng-template>
+            }
+        </owl-carousel-o>
+    </div>
+    <div class="p-5 lg:w-3/5">
+        <div>
+            <h2 class="pb-5 font-medium text-slate-950">{{productDetails.title}}</h2>
+            <p class="pb-3 font-light text-gray-500">{{productDetails.description}}</p>
+            <p class="pb-3 font-medium text-green-500">{{productDetails.category.name}}</p>
+            <div class="flex justify-between">
+                <p>{{ productDetails.price | currency:'EGP' }}</p>
+                <div>
+                    <span>{{productDetails.ratingsAverage}}</span>
+                    <i class="text-yellow-500 fa-solid fa-star"></i>
+                </div>
+            </div>
+            <div class="text-center">
+                @if (isLoggedIn) {
+                <button (click)="addToCart(productDetails._id)"
+                    class="w-[90%] mx-auto text-white bg-green-700 rounded my-7 py-2 hover:bg-green-600 transition-all duration-200">
+                    @if (isLoading) {
+                    <i class="fa-solid fa-spinner fa-spin-pulse me-2"></i>
+                    }
+                    Add to Cart</button>
+                }@else {
+                <button disabled
+                    class="w-[90%] mx-auto text-white bg-green-700 rounded my-7 py-2 hover:bg-green-600 transition-all duration-200">
+                    You need to be logged in to add items to cart</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
