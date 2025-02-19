@@ -56,6 +56,7 @@ export class ProductDetailsComponent {
     this.isLoading = true;
     this._CartService.addProductToCart(productID).subscribe({
       next: (res) => {
+        this._CartService.cartTotalItems.next(res.numOfCartItems);
         this.isLoading = false;
         console.log(res);
         Swal.fire({
