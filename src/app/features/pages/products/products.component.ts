@@ -1,3 +1,4 @@
+import { WishlistService } from './../../../core/services/wishlist/wishlist.service';
 import { ProductsService } from './../../../core/services/products/products.service';
 import { Component } from '@angular/core';
 import { Products } from '../../../shared/interfaces/products/products';
@@ -16,7 +17,7 @@ import { AuthService } from '../../../core/services/auth/auth.service';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
-  constructor(private _ProductsService: ProductsService, private _CartService: CartService, private _AuthService: AuthService) { }
+  constructor(private _ProductsService: ProductsService, private _CartService: CartService, private _AuthService: AuthService, private _WishlistService:WishlistService) { }
 
   productList: Products[] = [];
   searchVal: string = '';
@@ -76,5 +77,28 @@ export class ProductsComponent {
         console.log(err);
       }
     });
+  }
+
+  addToWishlist(event: Event, productID: string) {
+    event.stopPropagation();
+    console.log('hi', productID);
+    this._WishlistService.addProductToWishlist(productID).subscribe({
+      next:(res) =>{
+        Swal.fire({
+          color: "#fff",
+          background: "#14803d",
+          position: "top-end",
+          icon: "success",
+          title: "Product Added Succesfully",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+        });
+      },
+      error:(err) =>{
+        console.log(err);
+      }
+    })
   }
 }

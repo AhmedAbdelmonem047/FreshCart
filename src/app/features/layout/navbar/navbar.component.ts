@@ -1,3 +1,4 @@
+import { WishlistService } from './../../../core/services/wishlist/wishlist.service';
 import { CartService } from './../../../core/services/cart/cart.service';
 import { AuthService } from './../../../core/services/auth/auth.service';
 import { Component } from '@angular/core';
@@ -14,7 +15,8 @@ export class NavbarComponent {
   isLoggedIn: boolean = false;
   cartTotalItems!: number;
 
-  constructor(private flowbiteService: FlowbiteService, private _AuthService: AuthService, private _CartService: CartService) {
+
+  constructor(private flowbiteService: FlowbiteService, private _AuthService: AuthService, private _CartService: CartService, private _WishlistService:WishlistService) {
     _CartService.cartTotalItems.subscribe({
       next:(res) =>{
         this.cartTotalItems = res;

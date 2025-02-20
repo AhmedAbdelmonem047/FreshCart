@@ -19,6 +19,7 @@ export class CartComponent {
   totalItems: number = 0;
   totalPrice: number = 0;
   cartList: Cart[] = [];
+  cartId: string = '';
   isLoading: boolean = false;
   currentProductId: string = '';
 
@@ -32,6 +33,7 @@ export class CartComponent {
         this.totalItems = res.numOfCartItems;
         this.totalPrice = res.data.totalCartPrice;
         this.cartList = res.data.products;
+        this.cartId = res.cartId;
         this._CartService.cartTotalItems.next(res.numOfCartItems);
         console.log(res);
       },

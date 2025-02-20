@@ -14,6 +14,7 @@ import { cartGuard } from './core/guard/cart/cart.guard';
 import { ProductDetailsComponent } from './features/pages/product-details/product-details.component';
 import { AllOrdersComponent } from './features/pages/all-orders/all-orders.component';
 import { CheckoutComponent } from './features/pages/checkout/checkout.component';
+import { WishlistComponent } from './features/pages/wishlist/wishlist.component';
 
 export const routes: Routes = [
     {
@@ -22,8 +23,9 @@ export const routes: Routes = [
             { path: 'home', component: HomeComponent, title: 'Home' },
             { path: 'productDetails/:productID', component: ProductDetailsComponent, title: 'Product Details' },
             { path: 'cart', component: CartComponent, canActivate: [cartGuard], title: 'Cart' },
+            { path: 'wishlist', component: WishlistComponent, canActivate: [cartGuard], title: 'Wishlist' },
             { path: 'allorders', component: AllOrdersComponent, canActivate: [cartGuard], title: 'All Orders' },
-            { path: 'checkout', component: CheckoutComponent, canActivate: [cartGuard], title: 'Checkout' },
+            { path: 'checkout/:cartId', component: CheckoutComponent, canActivate: [cartGuard], title: 'Checkout' },
             { path: 'brands', component: BrandsComponent, title: 'Brands' },
             { path: 'products', component: ProductsComponent, title: 'Products' },
             { path: 'categories', component: CategoriesComponent, title: 'Categories' },

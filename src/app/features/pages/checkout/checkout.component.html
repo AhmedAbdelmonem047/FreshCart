@@ -1,1 +1,93 @@
-<p>checkout works!</p>
+<section class="w-[70%] mx-auto mt-16 py-24">
+    <h1 class="mb-6 text-2xl capitalize">Shipping Address :</h1>
+    <form [formGroup]="checkoutForm" (ngSubmit)="submitForm()">
+        <div class="relative my-5">
+            <input formControlName="details" type="text" id="formDetails"
+                class="block px-2.5 bg-white pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+                placeholder=" " />
+            <label for="formDetails"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                Details :</label>
+        </div>
+        @if (checkoutForm.get('details')?.errors && checkoutForm.get('details')?.touched) {
+        <div class="p-3 text-red-800 bg-red-100 border-red-700 rounded-lg">
+            <p *ngIf="checkoutForm.get('details')?.errors?.['required']">Details are required</p>
+        </div>
+        }
+        <div class="relative my-5">
+            <input formControlName="phone" type="text" id="formPhone"
+                class="block px-2.5 pb-2.5 bg-white pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+                placeholder=" " />
+            <label for="formPhone"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                Phone :</label>
+        </div>
+        @if (checkoutForm.get('phone')?.errors && checkoutForm.get('phone')?.touched) {
+        <div class="p-3 text-red-800 bg-red-100 border-red-700 rounded-lg">
+            <p *ngIf="checkoutForm.get('phone')?.errors?.['required']">Phone number is required</p>
+            <p *ngIf="checkoutForm.get('phone')?.errors?.['pattern']">Phone number is invalid</p>
+        </div>
+        }
+        <div class="relative my-5">
+            <input formControlName="city" type="text" id="formCity"
+                class="block px-2.5 pb-2.5 bg-white pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+                placeholder=" " />
+            <label for="formCity"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                City :</label>
+        </div>
+        @if (checkoutForm.get('city')?.errors && checkoutForm.get('city')?.touched) {
+        <div class="p-3 text-red-800 bg-red-100 border-red-700 rounded-lg">
+            <p *ngIf="checkoutForm.get('city')?.errors?.['required']">City is required</p>
+        </div>
+        }
+        <h1 class="pt-2 mb-6 text-2xl capitalize">Payment Method :</h1>
+        <div>
+            <ul class="grid w-full gap-6 md:grid-cols-2">
+                <li>
+                    <input type="radio" id="cashOnDelivery" name="paymentMethod" formControlName="paymentMethod"
+                        value="cashOnDelivery" class="hidden peer" required />
+                    <label for="cashOnDelivery"
+                        class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-green-500 peer-checked:border-green-600 dark:peer-checked:border-green-600 peer-checked:text-green-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <div class="block">
+                            <div class="w-full text-lg font-semibold">Cash on Delivery (COD)</div>
+                            <div class="w-full"> Non-refundable cash on delivery fees may apply.</div>
+                        </div>
+                        <svg class="w-5 h-5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </label>
+                </li>
+                <li>
+                    <input type="radio" id="onlinePayment" name="paymentMethod" formControlName="paymentMethod"
+                        value="onlinePayment" class="hidden peer">
+                    <label for="onlinePayment"
+                        class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-green-500 peer-checked:border-green-600 dark:peer-checked:border-green-600 peer-checked:text-green-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <div class="block">
+                            <div class="w-full text-lg font-semibold">Credit/Debit Cards</div>
+                            <div class="w-full">We accept MasterCard, Visa, and American Express</div>
+                        </div>
+                        <svg class="w-5 h-5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        @if (checkoutForm.get('paymentMethod')?.errors && checkoutForm.get('paymentMethod')?.touched) {
+        <div class="p-3 text-red-800 bg-red-100 border-red-700 rounded-lg">
+            <p *ngIf="checkoutForm.get('paymentMethod')?.errors?.['required']">Payment Method is required</p>
+        </div>
+        }
+        <button type="submit" (click)="submitForm()"
+            class="text-white my-5 duration-200 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex ms-auto items-center">
+            @if (isLoading) {
+            <i class="fa-solid fa-spinner fa-spin-pulse me-2"></i>
+            }
+            Proceed</button>
+    </form>
+</section>

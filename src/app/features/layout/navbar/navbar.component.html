@@ -18,10 +18,16 @@
             <a routerLink="/cart" routerLinkActive="bg-green-700 rounded-xl text-white"
                 class="relative block px-3 py-2 mt-px text-gray-800 duration-200 rounded-lg lg:hidden hover:bg-green-600 hover:text-white hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">
                 <i class="fa fa-shopping-cart"></i>
+                @if (cartTotalItems > 0) {
                 <div
                     class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
                     <p>{{cartTotalItems}}</p>
                 </div>
+                }
+            </a>
+            <a routerLink="/wishlist" routerLinkActive="bg-green-700 rounded-xl text-white"
+                class="relative block px-3 py-2 mt-px text-gray-800 duration-200 rounded-lg lg:hidden hover:bg-green-600 hover:text-white hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">
+                <i class="fa fa-heart"></i>
             </a>
             }
         </div>
@@ -49,23 +55,23 @@
             <ul
                 class="flex flex-col p-4 mt-4 space-y-2 font-medium border border-gray-100 rounded-lg ms-auto lg:p-0 lg:flex-row lg:space-x-3 lg:space-y-0 rtl:space-x-reverse lg:mt-3 lg:border-0 dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
                 @if (isLoggedIn) {
-                <li class="flex items-center justify-around space-x-4">
-                    <i class="duration-200 hover:text-green-600 fab fa-instagram" role="button"></i>
-                    <i class="duration-200 hover:text-green-600 fab fa-facebook" role="button"></i>
-                    <i class="duration-200 hover:text-green-600 fab fa-tiktok" role="button"></i>
-                    <i class="duration-200 hover:text-green-600 fab fa-twitter" role="button"></i>
-                    <i class="duration-200 hover:text-green-600 fab fa-linkedin" role="button"></i>
-                    <i class="duration-200 hover:text-green-600 fab fa-youtube" role="button"></i>
+                <li>
+                    <a routerLink="/wishlist" routerLinkActive="bg-green-700 rounded-xl text-white"
+                        class="relative hidden px-5 py-2 text-gray-900 duration-200 rounded-lg hoi lg:block hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">
+                        <i class="fa fa-heart"></i>
+                    </a>
                 </li>
 
                 <li>
                     <a routerLink="/cart" routerLinkActive="bg-green-700 rounded-xl text-white"
                         class="relative hidden px-5 py-2 text-gray-900 duration-200 rounded-lg hoi lg:block hover:bg-green-600 hover:rounded-xl lg:hover:text-white lg:border-0 dark:text-white lg:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">
                         <i class="fa fa-shopping-cart"></i>
+                        @if (cartTotalItems > 0) {
                         <div
                             class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2">
                             <p>{{cartTotalItems}}</p>
                         </div>
+                        }
                     </a>
                 </li>
 
