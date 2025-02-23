@@ -32,6 +32,9 @@ export class CheckoutComponent {
   })
 
   submitForm() {
+    // const currentURL = window.location.origin;
+    // console.log(currentURL);
+
     this.isLoading = true;
     console.log(this.checkoutForm.value.paymentMethod)
     if (this.checkoutForm.invalid) {
@@ -45,8 +48,12 @@ export class CheckoutComponent {
             this.isLoading = false;
             console.log(res);
             if (res.status == "success") {
-              // this._CartService.cartTotalItems.next(0);
-              window.location.href = res.session.url;
+              localStorage.setItem('payment', 'success');
+              const paymentURL = `${res.session.url}`;
+              window.location.href = paymentURL;
+            }
+            else {
+              localStorage.setItem('payment', 'failure');
             }
           },
           error: (err) => {

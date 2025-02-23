@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-all-orders',
@@ -8,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class AllOrdersComponent {
 
+  ngOnInit(): void {
+    if (localStorage.getItem('payment') == 'success') {
+      Swal.fire({
+        title: "Success",
+        text: "Order Created Successfully",
+        icon: "success",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#14803D",
+      })
+      localStorage.removeItem('payment');
+    }
+  }
 }

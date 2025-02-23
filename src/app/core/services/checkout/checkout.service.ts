@@ -5,10 +5,12 @@ import { Observable } from 'rxjs';
 import { environment } from '../../const/env';
 import { Checkout } from '../../../shared/interfaces/checkout/checkout';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
+  currentURL: string = window.location.origin;
 
   token!: any
 
@@ -16,6 +18,7 @@ export class CheckoutService {
     if (isPlatformBrowser(Id)) {
       this.token = { token: localStorage.getItem('userToken') || '' };
     }
+
   }
 
   getUserOrders(userId: string): Observable<any> {
@@ -23,17 +26,10 @@ export class CheckoutService {
   }
 
   createCashOrder(cartId: string, shippingAddress: Checkout): Observable<any> {
-    return this._HttpClient.post(`${environment.baseURL}/orders/${cartId}`, { shippingAddress: shippingAddress },
-      {
-        headers: this.token
-      })
+    return this._HttpClient.post(`${environment.baseURL}/orders/${cartId}`, { shippingAddress: shippingAddress })
   }
 
   gotoCheckoutSession(cartId: string, shippingAddress: Checkout): Observable<any> {
-    return this._HttpClient.post(`${environment.baseURL}/orders/checkout-session/${cartId}?url=http://localhost:4200`, { shippingAddress: shippingAddress },
-      {
-        headers: this.token
-      }
-    )
+    return this._HttpClient.post(`${environment.baseURL}/orders/checkout-session/${cartId}?url=${this.currentURL}`, { shippingAddress: shippingAddress })
   }
 }

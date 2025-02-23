@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { Auth } from '../../../shared/interfaces/auth/auth';
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { isPlatformBrowser } from '@angular/common';
@@ -41,5 +41,17 @@ export class AuthService {
     const token = localStorage.getItem('userToken') || '';
     const decoded = jwtDecode(token);
     this.userData.next(decoded);
+  }
+
+  verifyEmailForPassReset(userEmail: Auth): Observable<any> {
+    return this._HttpClient.post(`${environment.baseURL}/auth/forgotPasswords`, userEmail);
+  }
+
+  verifyCodeForPassReset(resetCode: Auth): Observable<any> {
+    return this._HttpClient.post(`${environment.baseURL}/auth/verifyResetCode`, resetCode);
+  }
+
+  resetPassword(payload: Auth): Observable<any> {
+    return this._HttpClient.put(`${environment.baseURL}/auth/resetPassword`, payload);
   }
 }

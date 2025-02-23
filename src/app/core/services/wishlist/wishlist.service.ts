@@ -19,23 +19,14 @@ export class WishlistService {
 
 
   getUserWishlist(): Observable<any> {
-    return this._HttpClient.get(`${environment.baseURL}/wishlist`,
-      {
-        headers: this.token
-      })
+    return this._HttpClient.get(`${environment.baseURL}/wishlist`)
   }
 
   addProductToWishlist(productId: string): Observable<any> {
-    return this._HttpClient.post(`${environment.baseURL}/wishlist`, { productId: productId },
-      {
-        headers: this.token
-      })
+    return this._HttpClient.post(`${environment.baseURL}/wishlist`, { productId: productId })
   }
 
   removeProductFromWishlist(productId: string): Observable<any> {
-    return this._HttpClient.delete(`${environment.baseURL}/wishlist/${productId}`,
-      {
-        headers: this.token
-      })
+    return this._HttpClient.delete(`${environment.baseURL}/wishlist/${productId}`)
   }
 }

@@ -24,36 +24,21 @@ export class CartService {
   }
 
   addProductToCart(productId: string): Observable<any> {
-    return this._HttpClient.post(`${environment.baseURL}/cart`, { productId: productId },
-      {
-        headers: this.token
-      })
+    return this._HttpClient.post(`${environment.baseURL}/cart`, { productId: productId })
   }
 
   updateProductQuantity(productId: string, count: number): Observable<any> {
-    return this._HttpClient.put(`${environment.baseURL}/cart/${productId}`, { count: count },
-      {
-        headers: this.token
-      })
+    return this._HttpClient.put(`${environment.baseURL}/cart/${productId}`, { count: count })
   }
 
   getUserCart(): Observable<any> {
-    return this._HttpClient.get(`${environment.baseURL}/cart`,
-      {
-        headers: this.token
-      })
+    return this._HttpClient.get(`${environment.baseURL}/cart`)
   }
   removeSpecificItem(productId: string): Observable<any> {
-    return this._HttpClient.delete(`${environment.baseURL}/cart/${productId}`,
-      {
-        headers: this.token
-      })
+    return this._HttpClient.delete(`${environment.baseURL}/cart/${productId}`)
   }
 
   clearCart(): Observable<any> {
-    return this._HttpClient.delete(`${environment.baseURL}/cart`,
-      {
-        headers: this.token
-      })
+    return this._HttpClient.delete(`${environment.baseURL}/cart`)
   }
 }

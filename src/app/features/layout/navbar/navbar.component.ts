@@ -16,12 +16,12 @@ export class NavbarComponent {
   cartTotalItems!: number;
 
 
-  constructor(private flowbiteService: FlowbiteService, private _AuthService: AuthService, private _CartService: CartService, private _WishlistService:WishlistService) {
-    _CartService.cartTotalItems.subscribe({
-      next:(res) =>{
-        this.cartTotalItems = res;
-      }
-    })
+  constructor(private flowbiteService: FlowbiteService, private _AuthService: AuthService, private _CartService: CartService, private _WishlistService: WishlistService) {
+    // _CartService.cartTotalItems.subscribe({
+    //   next:(res) =>{
+    //     this.cartTotalItems = res;
+    //   }
+    // })
   }
 
   ngOnInit(): void {
@@ -34,6 +34,11 @@ export class NavbarComponent {
       }
     })
 
+    this._CartService.cartTotalItems.subscribe({
+      next: (res) => {
+        this.cartTotalItems = res;
+      }
+    })
     this.flowbiteService.loadFlowbite(flowbite => {
       console.log('Flowbite loaded', flowbite);
     });

@@ -65,7 +65,7 @@ export class ProductsComponent {
           background: "#14803d",
           position: "top-end",
           icon: "success",
-          title: "Product Added Succesfully",
+          title: "Product Added Successfully",
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,

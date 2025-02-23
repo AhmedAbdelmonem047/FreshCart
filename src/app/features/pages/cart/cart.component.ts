@@ -25,6 +25,16 @@ export class CartComponent {
 
   ngOnInit(): void {
     this.getUserCart()
+    if (localStorage.getItem('payment') == 'failure') {
+      Swal.fire({
+        title: "Error",
+        text: "Something Went Wrong",
+        icon: "error",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#14803D",
+      })
+      localStorage.removeItem('payment');
+    }
   }
 
   getUserCart() {
