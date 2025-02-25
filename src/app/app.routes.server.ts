@@ -12,5 +12,9 @@ export const serverRoutes: ServerRoute[] = [
   {
     path: 'checkout/:cartId',
     renderMode: RenderMode.Server
+  },
+  {
+    path: 'subCategory/:catID',
+    renderMode: RenderMode.Server
   }
 ];
