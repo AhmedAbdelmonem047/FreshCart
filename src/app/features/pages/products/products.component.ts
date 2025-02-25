@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart/cart.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { Cart } from '../../../shared/interfaces/cart/cart';
 
 @Component({
   selector: 'app-products',
@@ -17,7 +18,7 @@ import { AuthService } from '../../../core/services/auth/auth.service';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
-  constructor(private _ProductsService: ProductsService, private _CartService: CartService, private _AuthService: AuthService, private _WishlistService:WishlistService) { }
+  constructor(private _ProductsService: ProductsService, private _CartService: CartService, private _AuthService: AuthService, private _WishlistService: WishlistService) { }
 
   productList: Products[] = [];
   searchVal: string = '';
@@ -66,6 +67,7 @@ export class ProductsComponent {
           position: "top-end",
           icon: "success",
           title: "Product Added Successfully",
+          showCloseButton: true,
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
@@ -83,20 +85,21 @@ export class ProductsComponent {
     event.stopPropagation();
     console.log('hi', productID);
     this._WishlistService.addProductToWishlist(productID).subscribe({
-      next:(res) =>{
+      next: (res) => {
         Swal.fire({
           color: "#fff",
           background: "#14803d",
           position: "top-end",
           icon: "success",
           title: "Product Added Succesfully",
+          showCloseButton: true,
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
           toast: true,
         });
       },
-      error:(err) =>{
+      error: (err) => {
         console.log(err);
       }
     })

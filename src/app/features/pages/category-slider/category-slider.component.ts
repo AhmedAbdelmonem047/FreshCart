@@ -1,8 +1,7 @@
 import { CategoriesService } from './../../../core/services/categories/categories.service';
 import { Component } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { Categories } from '../../../shared/interfaces/categories/categories';
-import { NgFor } from '@angular/common';
+import { Categories, Category } from '../../../shared/interfaces/categories/categories';
 
 @Component({
   selector: 'app-category-slider',
@@ -14,7 +13,7 @@ export class CategorySliderComponent {
 
   constructor(private _CategoriesService: CategoriesService) { }
 
-  categoryList: Categories[] = [];
+  categoryList: Category[] = [];
 
   ngOnInit(): void {
     this.getAllCategories();

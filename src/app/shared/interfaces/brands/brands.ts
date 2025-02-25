@@ -1,20 +1,22 @@
-export interface Categories {
+export interface Brands {
     results: number
     metadata: Metadata
-    data: Category[]
-}
-
-export interface Metadata {
+    data: Brand[]
+  }
+  
+  export interface Metadata {
     currentPage: number
     numberOfPages: number
     limit: number
-}
-
-export interface Category {
+    nextPage: number
+  }
+  
+  export interface Brand {
     _id: string
     name: string
     slug: string
     image: string
     createdAt: string
     updatedAt: string
-}
+  }
+  

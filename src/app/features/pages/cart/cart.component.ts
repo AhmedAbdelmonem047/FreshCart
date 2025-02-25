@@ -45,7 +45,7 @@ export class CartComponent {
         this.cartList = res.data.products;
         this.cartId = res.cartId;
         this._CartService.cartTotalItems.next(res.numOfCartItems);
-        console.log(res);
+        console.log(this.cartList);
       },
       error: (err) => {
         console.log(err);

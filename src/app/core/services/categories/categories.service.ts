@@ -14,7 +14,7 @@ export class CategoriesService {
     return this._HttpClient.get(`${environment.baseURL}/categories`);
   }
 
-  getSpecificCategory(catID: string): Observable<any> {
-    return this._HttpClient.get(`${environment.baseURL}/categories/${catID}`);
+  getAllSubCatForSpecificCat(catID: string): Observable<any> {
+    return this._HttpClient.get(`${environment.baseURL}/categories/${catID}/subcategories`);
   }
 }

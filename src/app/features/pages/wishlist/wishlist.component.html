@@ -1,1 +1,49 @@
-<p>{{totalItems}}</p>
+<section class="py-5 w-[88%] mx-auto">
+    @if (totalItems != 0) {
+    <div class="flex lg:flex-row flex-col justify-between gap-6 w-[88%] mx-auto py-10">
+        <div class="w-full p-5 mx-auto bg-gray-200">
+            <P class="py-5 text-3xl font-light text-green-600 ps-5">Wishlist</P>
+            <p class="py-5 text-lg font-light text-green-600 ps-5" *ngIf="totalItems == 1">{{totalItems}} Item</p>
+            <p class="py-5 text-lg font-light text-green-600 ps-5" *ngIf="totalItems != 1">{{totalItems}} Items</p>
+            <hr class="border-gray-300 py-2 w-[95%] mx-auto" />
+            @for (product of wishlistItems; track $index) {
+            <div class="py-7">
+                <div class="flex flex-col items-center justify-between md:flex-row">
+                    <div class="flex flex-col items-center justify-between gap-5 md:flex-row">
+                        <div role="button" class="p-2">
+                            <img [src]="product.imageCover" class="object-contain h-36 w-36"
+                                [alt]="product.title">
+                        </div>
+                        <div>
+                            <p role="button" class="text-xl font-medium">{{product.title}}</p>
+                            <span class="text-sm font-light text-green-600">In Stock</span>
+                            <div class="flex flex-col items-center py-3 md:flex-row">
+                                <div class="flex items-center py-3">
+                                    <button (click)="addProductToCart(product._id)" class="text-green-600">
+                                        <i class="fa fa-shopping-cart pe-1"></i>Add to Cart
+                                    </button>
+                                </div>
+                                <hr class="border-gray-300 -translate-y-0.5 w-[25px] rotate-90" />
+                                <button (click)="removeProductFromWishlist(product._id)" class="text-red-600">
+                                    <i class="far fa-trash-alt pe-1"></i>Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xl font-bold">{{product.price| currency:'EGP'}}</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-gray-300 w-[80%] mx-auto" />
+            }
+        </div>
+    </div>
+    }@else {
+    <div class="h-[500px] flex-col lg:flex-row flex justify-center items-center">
+        <img src="assets/images/no-cart.svg" class="w-[400px] h-[400px]" alt="no-cart-image">
+        <h1 class="text-5xl font-semibold text-gray-800">No Products</h1>
+    </div>
+    }
+
+</section>
