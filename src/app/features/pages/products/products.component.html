@@ -16,10 +16,10 @@
                         @if (isLoggedIn) {
                         @if (isProductInCart(product._id)) {
                         <div
-                            class="absolute bottom-0 left-0 flex items-center justify-center w-full py-2 text-white transition-all duration-300 bg-green-700 opacity-0 text- group-hover:opacity-100">
+                            class="absolute bottom-0 left-0 flex items-center justify-center w-full py-2 text-white transition-all duration-300 opacity-0 text- group-hover:opacity-100">
                             <button
                                 (click)="updateProductQuantity($event, product._id,((getProductCount(product._id)) - 1))"
-                                class="inline-flex items-center justify-center w-6 h-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                class="inline-flex items-center justify-center w-6 h-6 p-1 text-sm font-medium text-green-600 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                                 type="button">
                                 @if (getProductCount(product._id) == 1) {
                                 <i class="far fa-trash-alt"></i>
@@ -32,20 +32,20 @@
                                 <i class="fa-solid fa-spinner fa-spin-pulse me-2"></i>
                                 }@else {
                                 <input type="number"
-                                    class="bg-gray-50 counter w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block px-2.5 py-1"
-                                    [placeholder]="getProductCount(product._id)" required />
+                                    class="bg-gray-50 counter w-14 border-2 text-center text-gray-900 text-sm rounded-lg border-green-600 block px-2.5 py-1"
+                                    [placeholder]="getProductCount(product._id)" disabled />
                                 }
                             </div>
                             <button
                                 (click)="updateProductQuantity($event, product._id, ((getProductCount(product._id)) + 1))"
-                                class="inline-flex items-center justify-center w-6 h-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full ms-3 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                class="inline-flex items-center justify-center w-6 h-6 p-1 text-sm font-medium text-green-600 bg-white border border-gray-300 rounded-full ms-3 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                                 type="button">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
                         }@else {
                         <button
-                            class="absolute bottom-0 left-0 w-full py-2 text-center text-white transition-all duration-300 bg-green-700 opacity-0 group-hover:opacity-100 hover:bg-green-600"
+                            class="absolute bottom-0 left-0 w-full py-2 text-center text-white transition-all duration-300 bg-green-700 rounded opacity-0 group-hover:opacity-100 hover:bg-green-600"
                             (click)="addToCart($event, product._id)">
                             @if (isLoading && currentProductId == product._id) {
                             <i class="fa-solid fa-spinner fa-spin-pulse me-2"></i>

@@ -210,7 +210,6 @@ export class ProductsComponent {
 
   addToWishlist(event: Event, productID: string) {
     event.stopPropagation();
-    console.log('hi', productID);
     this._WishlistService.addProductToWishlist(productID).subscribe({
       next: (res) => {
         Swal.fire({
@@ -235,7 +234,6 @@ export class ProductsComponent {
 
   removeFromWishlist(event: Event, productID: string) {
     event.stopPropagation();
-    console.log('hi', productID);
     this._WishlistService.removeProductFromWishlist(productID).subscribe({
       next: (res) => {
         Swal.fire({

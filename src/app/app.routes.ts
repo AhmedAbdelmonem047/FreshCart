@@ -7,15 +7,6 @@ import { cartGuard } from './core/guard/cart/cart.guard';
 
 export const routes: Routes = [
     {
-        path: '', component: AuthLayoutComponent, canActivate: [authGuard], children: [
-            { path: '', redirectTo: 'login', pathMatch: 'full' },
-            { path: 'login', loadComponent: () => import('./features/auth/login/login.component').then((c) => c.LoginComponent), title: 'Login' },
-            { path: 'signup', loadComponent: () => import('./features/auth/signup/signup.component').then((c) => c.SignupComponent), title: 'Signup' },
-            { path: 'resetPassword', loadComponent: () => import('./features/auth/reset-password/reset-password.component').then((c) => c.ResetPasswordComponent), title: 'Reset Password' },
-
-        ]
-    },
-    {
         path: '', component: MainLayoutComponent, children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', loadComponent: () => import('./features/pages/home/home.component').then((c) => c.HomeComponent), title: 'Home' },
@@ -28,6 +19,15 @@ export const routes: Routes = [
             { path: 'products', loadComponent: () => import('./features/pages/products/products.component').then((c) => c.ProductsComponent), title: 'Products' },
             { path: 'categories', loadComponent: () => import('./features/pages/categories/categories.component').then((c) => c.CategoriesComponent), title: 'Categories' },
             { path: 'subCategory/:catID', loadComponent: () => import('./features/pages/sub-category/sub-category.component').then((c) => c.SubCategoryComponent), title: 'Sub Categories' },
+        ]
+    },
+    {
+        path: '', component: AuthLayoutComponent, canActivate: [authGuard], children: [
+            { path: '', redirectTo: 'login', pathMatch: 'full' },
+            { path: 'login', loadComponent: () => import('./features/auth/login/login.component').then((c) => c.LoginComponent), title: 'Login' },
+            { path: 'signup', loadComponent: () => import('./features/auth/signup/signup.component').then((c) => c.SignupComponent), title: 'Signup' },
+            { path: 'resetPassword', loadComponent: () => import('./features/auth/reset-password/reset-password.component').then((c) => c.ResetPasswordComponent), title: 'Reset Password' },
+
         ]
     },
     { path: '**', loadComponent: () => import('./features/pages/not-found/not-found.component').then((c) => c.NotFoundComponent), title: '404' },

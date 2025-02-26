@@ -12,3 +12,8 @@
 .owl-next {
   right: -2rem !important;
 }
+.counter::-webkit-outer-spin-button,
+.counter::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
