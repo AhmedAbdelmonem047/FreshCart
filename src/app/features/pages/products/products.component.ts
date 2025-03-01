@@ -5,7 +5,7 @@ import { Products } from '../../../shared/interfaces/products/products';
 import { CurrencyPipe, NgIf, UpperCasePipe } from '@angular/common';
 import { FilterPipe } from "../../../shared/pipe/filter.pipe";
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart/cart.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../core/services/auth/auth.service';
@@ -20,7 +20,7 @@ import { Product } from '../../../shared/interfaces/wishlist/wishlist';
 })
 export class ProductsComponent {
   constructor(private _ProductsService: ProductsService, private _CartService: CartService, private _AuthService: AuthService,
-    private _WishlistService: WishlistService, private cdr: ChangeDetectorRef, private ngZone: NgZone, private _Router: Router) {
+    private _WishlistService: WishlistService, private cdr: ChangeDetectorRef, private ngZone: NgZone, private _Router: Router, private route: ActivatedRoute) {
     this._AuthService?.userData.subscribe({
       next: (res) => {
         if (res !== null)
@@ -57,11 +57,16 @@ export class ProductsComponent {
   }
 
   reloadComponent() {
-    const currentUrl = this._Router.url; // Get the current route dynamically
-
-    this._Router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this._Router.navigateByUrl(currentUrl); // Navigate back to the current route
+    this._Router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { reload: new Date().getTime() }, // Unique query param
+      queryParamsHandling: 'merge'
     });
+    // const currentUrl = this._Router.url; // Get the current route dynamically
+
+    // this._Router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    //   this._Router.navigateByUrl(currentUrl); // Navigate back to the current route
+    // });
     // this.ngZone.runOutsideAngular(() => {
     //   location.reload();
     // });
