@@ -60,6 +60,7 @@ export class ProductsComponent {
     this.ngZone.runOutsideAngular(() => {
       location.reload();
     });
+    this.cdr.detectChanges();
   }
 
   getAllProducts() {
@@ -106,7 +107,6 @@ export class ProductsComponent {
       }
     });
     this.reloadComponent();
-    // this.cdr.detectChanges()
   }
 
   isProductInCart(productId: string) {

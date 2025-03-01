@@ -2,6 +2,7 @@ import { CategoriesService } from './../../../core/services/categories/categorie
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from '../../../shared/interfaces/categories/categories';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-sub-category',
@@ -14,7 +15,7 @@ export class SubCategoryComponent {
   catID: string = '';
   subCatList: Category[] = [];
 
-  constructor(private _ActivatedRoute: ActivatedRoute, private _CategoriesService: CategoriesService) {
+  constructor(private _ActivatedRoute: ActivatedRoute, private _CategoriesService: CategoriesService, private _Location: Location) {
     _ActivatedRoute.params.subscribe(res => {
       this.catID = res['catID'];
       console.log(this.catID);
@@ -35,6 +36,10 @@ export class SubCategoryComponent {
         console.log(err);
       }
     })
+  }
+
+  goBack(): void {
+    this._Location.back();
   }
 
 }

@@ -1,1 +1,46 @@
-<p>all-orders works!</p>
+<section class="py-5 w-[88%] mx-auto">
+    @if (orderList.length != 0) {
+    <div class="flex lg:flex-row flex-col justify-between gap-6 w-[88%] mx-auto py-10">
+        <div class="w-full p-5 mx-auto bg-gray-200">
+            <P class="py-5 text-3xl font-light text-green-600 ps-5">All Orders</P>
+            <p class="py-5 text-lg font-light text-green-600 ps-5" *ngIf="orderList.length == 1">{{orderList.length}}
+                Order</p>
+            <p class="py-5 text-lg font-light text-green-600 ps-5" *ngIf="orderList.length != 1">{{orderList.length}}
+                Orders</p>
+            <hr class="border-gray-300 py-2 w-[95%] mx-auto" />
+            @for (order of orderList; track $index) {
+            <div class="py-7">
+                <div class="flex flex-col items-center justify-between md:flex-row">
+                    <div class="flex flex-col items-center justify-between gap-5 md:flex-row">
+                        <div>
+                            <p role="button" class="text-xl font-medium">Order #{{order.id}}</p>
+                            <p>Payment Mehtod: <span
+                                    class="font-light text-green-600 capitalize text-md ps-1">{{order.paymentMethodType}}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 w-[30%]">
+                        @for (item of order.cartItems; track $index) {
+                        <div role="button" [routerLink]="['/productDetails', item.product.id]">
+                            <img class="h-auto max-w-full rounded-lg" [src]="item.product.imageCover"
+                                [alt]="item.product.title">
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <p class="text-xl font-bold">{{order.totalOrderPrice| currency:'EGP'}}</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-gray-300 w-[80%] mx-auto" />
+            }
+        </div>
+    </div>
+    }@else {
+    <div class="h-[500px] flex-col lg:flex-row flex justify-center items-center">
+        <img src="assets/images/no-cart.svg" class="w-[400px] h-[400px]" alt="no-cart-image">
+        <h1 class="text-5xl font-semibold text-gray-800">No Orders</h1>
+    </div>
+    }
+
+</section>

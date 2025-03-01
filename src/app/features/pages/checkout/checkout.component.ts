@@ -32,21 +32,16 @@ export class CheckoutComponent {
   })
 
   submitForm() {
-    // const currentURL = window.location.origin;
-    // console.log(currentURL);
-
     this.isLoading = true;
-    console.log(this.checkoutForm.value.paymentMethod)
     if (this.checkoutForm.invalid) {
       this.isLoading = false;
       this.checkoutForm.markAllAsTouched();
     }
     else {
-      if (this.checkoutForm.value.paymentMethod == 'onlinePayment') {
+      if (this.checkoutForm.value.paymentMethod === 'onlinePayment') {
         this._CheckoutService.gotoCheckoutSession(this.cartId, this.checkoutForm.value).subscribe({
           next: (res) => {
             this.isLoading = false;
-            console.log(res);
             if (res.status == "success") {
               localStorage.setItem('payment', 'success');
               const paymentURL = `${res.session.url}`;
@@ -66,7 +61,6 @@ export class CheckoutComponent {
         this._CheckoutService.createCashOrder(this.cartId, this.checkoutForm.value).subscribe({
           next: (res) => {
             this.isLoading = false;
-            console.log(res);
             if (res.status == "success") {
               Swal.fire({
                 title: "Success",
@@ -85,7 +79,6 @@ export class CheckoutComponent {
           }
         })
       }
-
     }
   }
 }

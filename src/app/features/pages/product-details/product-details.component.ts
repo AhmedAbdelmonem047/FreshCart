@@ -3,16 +3,17 @@ import { CartService } from './../../../core/services/cart/cart.service';
 import { AuthService } from './../../../core/services/auth/auth.service';
 import { ProductsService } from './../../../core/services/products/products.service';
 import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Products } from '../../../shared/interfaces/products/products';
 import { CurrencyPipe, NgIf } from '@angular/common';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { Product } from '../../../shared/interfaces/wishlist/wishlist';
+import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CurrencyPipe, CarouselModule, RouterLink, NgIf],
+  imports: [CurrencyPipe, CarouselModule, NgIf],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })
@@ -27,7 +28,7 @@ export class ProductDetailsComponent {
   totalItems: number = 0;
 
   constructor(private _ActivatedRoute: ActivatedRoute, private _ProductsService: ProductsService, private _AuthService: AuthService, private _CartService: CartService,
-    private _WishlistService: WishlistService, private cdr: ChangeDetectorRef, private ngZone: NgZone) {
+    private _WishlistService: WishlistService, private cdr: ChangeDetectorRef, private ngZone: NgZone, private _Location: Location) {
     _ActivatedRoute.params.subscribe(res => {
       this.productID = res['productID']
       console.log(this.productID);
@@ -266,4 +267,9 @@ export class ProductDetailsComponent {
     },
     nav: true
   }
+
+  goBack(): void {
+    this._Location.back();
+  }
+
 }
