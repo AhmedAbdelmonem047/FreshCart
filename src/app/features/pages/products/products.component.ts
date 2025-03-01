@@ -57,16 +57,18 @@ export class ProductsComponent {
   }
 
   reloadComponent() {
-    this._Router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { reload: new Date().getTime() }, // Unique query param
-      queryParamsHandling: 'merge'
-    });
+    // this._Router.navigate([], {
+    //   relativeTo: this.route,
+    //   queryParams: { reload: new Date().getTime() }, // Unique query param
+    //   queryParamsHandling: 'merge'
+    // });
+
     // const currentUrl = this._Router.url; // Get the current route dynamically
 
     // this._Router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
     //   this._Router.navigateByUrl(currentUrl); // Navigate back to the current route
     // });
+
     // this.ngZone.runOutsideAngular(() => {
     //   location.reload();
     // });

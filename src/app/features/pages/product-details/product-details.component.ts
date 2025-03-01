@@ -60,9 +60,9 @@ export class ProductDetailsComponent {
   }
 
   reloadComponent() {
-    this.ngZone.runOutsideAngular(() => {
-      location.reload();
-    });
+    // this.ngZone.runOutsideAngular(() => {
+    //   location.reload();
+    // });
   }
 
   getSpecificProduct() {
