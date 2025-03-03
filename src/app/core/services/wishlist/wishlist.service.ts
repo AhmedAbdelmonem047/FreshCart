@@ -10,8 +10,7 @@ import { environment } from '../../const/env';
 export class WishlistService {
 
   token!: any;
-  private wishlistState = new BehaviorSubject<{ productId: string; inWishlist: boolean }[]>([]);
-  wishlistState$ = this.wishlistState.asObservable();
+  wishlistState = new BehaviorSubject<{ productId: string; inWishlist: boolean }[]>([]);
 
   constructor(private _HttpClient: HttpClient, @Inject(PLATFORM_ID) Id: object) {
     if (isPlatformBrowser(Id)) {
@@ -36,11 +35,11 @@ export class WishlistService {
     let currentWishlist = this.wishlistState.value;
     const index = currentWishlist.findIndex(item => item.productId === productId);
 
-    if (index !== -1) {
+    if (index !== -1)
       currentWishlist[index].inWishlist = !currentWishlist[index].inWishlist;
-    } else {
+    else
       currentWishlist = [...currentWishlist, { productId, inWishlist: true }];
-    }
+
 
     this.wishlistState.next(currentWishlist);
   }

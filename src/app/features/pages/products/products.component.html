@@ -14,14 +14,14 @@
                     <img [src]="product.imageCover" class="object-cover w-full h-full" [alt]="product.title">
                     <div>
                         @if (isLoggedIn) {
-                        @if (isInCart(product._id)) {
-                        <div
+
+                        <div *ngIf="isInCart(product._id)"
                             class="absolute bottom-0 left-0 flex items-center justify-center w-full py-2 text-white transition-all duration-300 opacity-0 text- group-hover:opacity-100">
                             <button
-                                (click)="updateProductQuantity($event, product._id,((getProductCount(product._id)) - 1))"
+                                (click)="updateProductQuantity($event, product._id,((getProductQuantity(product._id)) - 1))"
                                 class="inline-flex items-center justify-center w-6 h-6 p-1 text-sm font-medium text-green-600 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                                 type="button">
-                                @if (getProductCount(product._id) == 1) {
+                                @if (getProductQuantity(product._id) == 1) {
                                 <i class="far fa-trash-alt"></i>
                                 }@else {
                                 <i class="fas fa-minus"></i>
@@ -33,26 +33,28 @@
                                 }@else {
                                 <input type="number"
                                     class="bg-gray-50 counter w-14 border-2 text-center text-gray-900 text-sm rounded-lg border-green-600 block px-2.5 py-1"
-                                    [placeholder]="getProductCount(product._id)" disabled />
+                                    [placeholder]="getProductQuantity(product._id)" disabled />
                                 }
                             </div>
                             <button
-                                (click)="updateProductQuantity($event, product._id, ((getProductCount(product._id)) + 1))"
+                                (click)="updateProductQuantity($event, product._id, ((getProductQuantity(product._id)) + 1))"
                                 class="inline-flex items-center justify-center w-6 h-6 p-1 text-sm font-medium text-green-600 bg-white border border-gray-300 rounded-full ms-3 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                                 type="button">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
-                        }@else {
-                        <button
-                            class="absolute bottom-0 left-0 w-full py-2 text-center text-white transition-all duration-300 bg-green-700 rounded opacity-0 group-hover:opacity-100 hover:bg-green-600"
-                            (click)="addToCart($event, product._id)">
-                            @if (isLoading && currentProductId == product._id) {
-                            <i class="fa-solid fa-spinner fa-spin-pulse me-2"></i>
-                            }
-                            Add to Cart
-                        </button>
-                        }
+
+                        <div *ngIf="!isInCart(product._id)">
+                            <button
+                                class="absolute bottom-0 left-0 w-full py-2 text-center text-white transition-all duration-300 bg-green-700 rounded opacity-0 group-hover:opacity-100 hover:bg-green-600"
+                                (click)="addToCart($event, product._id)">
+                                @if (isLoading && currentProductId == product._id) {
+                                <i class="fa-solid fa-spinner fa-spin-pulse me-2"></i>
+                                }
+                                Add to Cart
+                            </button>
+                        </div>
+
 
                         <button *ngIf="isInWishlist(product._id)"
                             class="absolute top-0 py-2 text-center text-red-600 transition-all duration-300 opacity-0 right-2 group-hover:opacity-100"

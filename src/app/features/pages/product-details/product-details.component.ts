@@ -2,13 +2,12 @@ import { WishlistService } from './../../../core/services/wishlist/wishlist.serv
 import { CartService } from './../../../core/services/cart/cart.service';
 import { AuthService } from './../../../core/services/auth/auth.service';
 import { ProductsService } from './../../../core/services/products/products.service';
-import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Products } from '../../../shared/interfaces/products/products';
-import { CurrencyPipe, NgIf } from '@angular/common';
+import { CurrencyPipe, NgIf, Location } from '@angular/common';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { Product } from '../../../shared/interfaces/wishlist/wishlist';
-import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,6 +18,8 @@ import Swal from 'sweetalert2';
 })
 export class ProductDetailsComponent {
 
+  cart: { productId: string; inCart: boolean; quantity: number }[] = [];
+  wishlist: { productId: string; inWishlist: boolean }[] = [];
   productID: string = '';
   productDetails!: Products;
   isLoggedIn: boolean = false;
@@ -28,10 +29,9 @@ export class ProductDetailsComponent {
   totalItems: number = 0;
 
   constructor(private _ActivatedRoute: ActivatedRoute, private _ProductsService: ProductsService, private _AuthService: AuthService, private _CartService: CartService,
-    private _WishlistService: WishlistService, private cdr: ChangeDetectorRef, private ngZone: NgZone, private _Location: Location) {
-    _ActivatedRoute.params.subscribe(res => {
+    private _WishlistService: WishlistService, private _Location: Location) {
+    this._ActivatedRoute.params.subscribe(res => {
       this.productID = res['productID']
-      console.log(this.productID);
     });
     this._AuthService?.userData.subscribe({
       next: (res) => {
@@ -49,27 +49,42 @@ export class ProductDetailsComponent {
       this._CartService.getUserCart().subscribe({
         next: (res) => {
           this.cartList = res.data.products;
+          const cartItems = this.cartList.map(item => ({
+            productId: item.product._id,
+            inCart: true,
+            quantity: item.count
+          }));
+          this._CartService.cartState.next(cartItems);
         }
-      });
+      })
       this._WishlistService.getUserWishlist().subscribe({
         next: (res) => {
           this.wishlistItems = res.data;
+          const wishlistData = this.wishlistItems.map(item => ({
+            productId: item._id,
+            inWishlist: true
+          }));
+          this._WishlistService.wishlistState.next(wishlistData);
         }
-      });
+      })
+      this._CartService.cartState.subscribe({
+        next: (res) => {
+          this.cart = res;
+        }
+      })
+      this._WishlistService.wishlistState.subscribe({
+        next: (res) => {
+          this.wishlist = res;
+        }
+      })
     }
   }
 
-  reloadComponent() {
-    // this.ngZone.runOutsideAngular(() => {
-    //   location.reload();
-    // });
-  }
 
   getSpecificProduct() {
     this._ProductsService.getSpecificProduct(this.productID).subscribe({
       next: (res => {
         this.productDetails = res.data;
-        console.log(this.productDetails);
       }),
       error: (err => {
         console.log(err);
@@ -81,6 +96,7 @@ export class ProductDetailsComponent {
     this.isLoading = true;
     this._CartService.addProductToCart(productID).subscribe({
       next: (res) => {
+        this.toggleCart(this.productID);
         this._CartService.cartTotalItems.next(res.numOfCartItems);
         this.isLoading = false;
         console.log(res);
@@ -101,37 +117,20 @@ export class ProductDetailsComponent {
         console.log(err);
       }
     });
-    this.reloadComponent()
-  }
 
-  isProductInCart(productId: string) {
-    if (this.isLoggedIn) {
-      let flag = this.cartList.find(product => product.product._id === productId);
-      if (flag)
-        return true
-      else
-        return false
-    }
-    return false
-  }
-
-  getProductCount(productID: string) {
-    if (this.isLoggedIn) {
-      let flag = this.cartList.find(product => product.product._id === productID);
-      if (flag)
-        return flag.count
-      else
-        return 0
-    }
-    return 0
   }
 
   updateProductQuantity(event: Event, productId: string, count: number) {
     event.stopPropagation();
     if (count > 0) {
       this.isLoading = true;
+      let quantity: number = this.getProductQuantity(productId);
       this._CartService.updateProductQuantity(productId, count).subscribe({
         next: (res) => {
+          if (count > quantity)
+            this.toggleCart(productId);
+          else
+            this.removeProduct(productId);
           this.isLoading = false;
           this.totalItems = res.numOfCartItems;
           this.cartList = res.data.products;
@@ -159,13 +158,13 @@ export class ProductDetailsComponent {
     else {
       this.removeSpecificItem(productId);
     }
-    this.cdr.detectChanges();
   }
 
   removeSpecificItem(productId: string) {
     this.isLoading = true;
     this._CartService.removeSpecificItem(productId).subscribe({
       next: (res) => {
+        this.removeProduct(this.productID);
         this.isLoading = false;
         this.totalItems = res.numOfCartItems;
         this.cartList = res.data.products;
@@ -190,21 +189,28 @@ export class ProductDetailsComponent {
     });
   }
 
-  isProductInWishlist(productId: string) {
-    if (this.isLoggedIn) {
-      let flag = this.wishlistItems.find(product => product._id === productId);
-      if (flag)
-        return true
-      else
-        return false
-    }
-    return false
+  toggleCart(productId: string) {
+    this._CartService.toggleCart(productId);
+  }
+
+  removeProduct(productId: string) {
+    this._CartService.removeProduct(productId);
+  }
+
+  isInCart(productId: string): boolean {
+    return this._CartService.isInCart(productId);
+  }
+
+  getProductQuantity(productId: string): number {
+    const product = this.cart.find(item => item.productId === productId);
+    return product ? product.quantity : 0;
   }
 
   addToWishlist(event: Event, productID: string) {
     event.stopPropagation();
     this._WishlistService.addProductToWishlist(productID).subscribe({
       next: (res) => {
+        this.toggleWishlist(productID);
         Swal.fire({
           color: "#fff",
           background: "#14803d",
@@ -222,13 +228,13 @@ export class ProductDetailsComponent {
         console.log(err);
       }
     })
-    this.reloadComponent();
   }
 
   removeFromWishlist(event: Event, productID: string) {
     event.stopPropagation();
     this._WishlistService.removeProductFromWishlist(productID).subscribe({
       next: (res) => {
+        this.toggleWishlist(productID);
         Swal.fire({
           color: "#fff",
           background: "#14803d",
@@ -246,7 +252,14 @@ export class ProductDetailsComponent {
         console.log(err);
       }
     })
-    this.reloadComponent();
+  }
+
+  toggleWishlist(productId: string) {
+    this._WishlistService.toggleWishlist(productId);
+  }
+
+  isInWishlist(productId: string): boolean {
+    return this._WishlistService.isInWishlist(productId);
   }
 
   customOptions: OwlOptions = {

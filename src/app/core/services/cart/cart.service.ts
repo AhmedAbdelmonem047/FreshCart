@@ -11,10 +11,8 @@ export class CartService {
 
   token!: any;
   cartTotalItems: BehaviorSubject<any> = new BehaviorSubject<any>(0);
-
-  private cartState = new BehaviorSubject<{ productId: string; inCart: boolean }[]>([]);
-  cartState$ = this.cartState.asObservable();
-
+  // cartState = new BehaviorSubject<{ productId: string; inCart: boolean }[]>([]);
+  cartState = new BehaviorSubject<{ productId: string; inCart: boolean; quantity: number }[]>([]);
 
   constructor(private _HttpClient: HttpClient, @Inject(PLATFORM_ID) Id: object) {
     if (isPlatformBrowser(Id)) {
@@ -22,6 +20,11 @@ export class CartService {
       this.getUserCart().subscribe({
         next: (res) => {
           this.cartTotalItems.next(res.numOfCartItems);
+          // const cartItems = res.map((item: { productId: any; }) => ({
+          //   productId: item.productId,
+          //   isInCart: true 
+          // }));
+          // this.cartState.next(cartItems);
         }
       })
     }
@@ -50,10 +53,24 @@ export class CartService {
     let currentCart = this.cartState.value;
     const index = currentCart.findIndex(item => item.productId === productId);
 
+    if (index !== -1)
+      currentCart[index].quantity += 1;
+    else
+      currentCart = [...currentCart, { productId, inCart: true, quantity: 1 }];
+
+
+    this.cartState.next(currentCart);
+  }
+
+  removeProduct(productId: string) {
+    let currentCart = this.cartState.value;
+    const index = currentCart.findIndex(item => item.productId === productId);
+
     if (index !== -1) {
-      currentCart[index].inCart = !currentCart[index].inCart;
-    } else {
-      currentCart = [...currentCart, { productId, inCart: true }];
+      if (currentCart[index].quantity > 1)
+        currentCart[index].quantity -= 1;
+      else
+        currentCart.splice(index, 1);
     }
 
     this.cartState.next(currentCart);
