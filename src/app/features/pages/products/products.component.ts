@@ -32,11 +32,13 @@ export class ProductsComponent {
   }
 
   cart: { productId: string; inCart: boolean }[] = [];
+  wishlist: { productId: string; inWishlist: boolean }[] = [];
   productList: Products[] = [];
   searchVal: string = '';
   isLoggedIn: boolean = false;
   isLoading: boolean = false;
   currentProductId: string = '';
+  currentProductCount: number = 0;
   cartList: any[] = [];
   wishlistItems: Product[] = [];
   totalItems: number = 0;
@@ -58,10 +60,12 @@ export class ProductsComponent {
     this._CartService.cartState$.subscribe(cart => {
       this.cart = cart;
     });
+    this._WishlistService.wishlistState$.subscribe(wishlist => {
+      this.wishlist = wishlist;
+    })
   }
 
-  toggleCart(event:Event, productId: string) {
-    event.stopPropagation();
+  toggleCart(productId: string) {
     this._CartService.toggleCart(productId);
   }
 
@@ -69,8 +73,16 @@ export class ProductsComponent {
     return this._CartService.isInCart(productId);
   }
 
+  toggleWishlist(productId: string) {
+    this._WishlistService.toggleWishlist(productId);
+  }
+
+  isInWishlist(productId: string): boolean {
+    return this._WishlistService.isInWishlist(productId);
+  }
+
   reloadComponent() {
-    this._CartService.toggleCart(this.currentProductId);
+
     // this._Router.navigate([], {
     //   relativeTo: this.route,
     //   queryParams: { reload: new Date().getTime() }, // Unique query param
@@ -105,15 +117,13 @@ export class ProductsComponent {
   }
 
   addToCart(event: Event, productID: string) {
-    console.log('hi');
-    
     this.isLoading = true;
     this.currentProductId = productID;
+    this.currentProductCount += 1;
     event.stopPropagation();
     this._CartService.addProductToCart(productID).subscribe({
       next: (res) => {
         console.log(res);
-
         this._CartService.cartTotalItems.next(res.numOfCartItems);
         this.isLoading = false;
         Swal.fire({
@@ -135,17 +145,7 @@ export class ProductsComponent {
       }
     });
     this.reloadComponent();
-  }
-
-  isProductInCart(productId: string) {
-    if (this.isLoggedIn) {
-      let flag = this.cartList.find(product => product.product._id === productId);
-      if (flag)
-        return true
-      else
-        return false
-    }
-    return false
+    this._CartService.toggleCart(this.currentProductId);
   }
 
   getProductCount(productID: string) {
@@ -171,6 +171,7 @@ export class ProductsComponent {
           this.totalItems = res.numOfCartItems;
           this.cartList = res.data.products;
           this._CartService.cartTotalItems.next(res.numOfCartItems);
+          this.currentProductCount = this.getProductCount(this.currentProductId);
           Swal.fire({
             color: "#fff",
             background: "#14803d",
@@ -225,17 +226,7 @@ export class ProductsComponent {
       }
     });
     this.reloadComponent();
-  }
-
-  isProductInWishlist(productId: string) {
-    if (this.isLoggedIn) {
-      let flag = this.wishlistItems.find(product => product._id === productId);
-      if (flag)
-        return true
-      else
-        return false
-    }
-    return false
+    this._CartService.toggleCart(this.currentProductId);
   }
 
   addToWishlist(event: Event, productID: string) {
@@ -260,6 +251,7 @@ export class ProductsComponent {
       }
     })
     this.reloadComponent();
+    this.toggleWishlist(productID);
   }
 
   removeFromWishlist(event: Event, productID: string) {
@@ -284,5 +276,6 @@ export class ProductsComponent {
       }
     })
     this.reloadComponent();
+    this.toggleWishlist(productID);
   }
 }

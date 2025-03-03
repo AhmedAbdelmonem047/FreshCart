@@ -54,13 +54,13 @@
                         </button>
                         }
 
-                        <button *ngIf="isProductInWishlist(product._id)"
+                        <button *ngIf="isInWishlist(product._id)"
                             class="absolute top-0 py-2 text-center text-red-600 transition-all duration-300 opacity-0 right-2 group-hover:opacity-100"
                             (click)="removeFromWishlist($event, product._id)">
                             <i class="fa fa-heart"></i>
                         </button>
 
-                        <button *ngIf="!isProductInWishlist(product._id)"
+                        <button *ngIf="!isInWishlist(product._id)"
                             class="absolute top-0 py-2 text-center text-black transition-all duration-300 opacity-0 right-2 group-hover:opacity-100"
                             (click)="addToWishlist($event, product._id)">
                             <i class="far fa-heart"></i>
