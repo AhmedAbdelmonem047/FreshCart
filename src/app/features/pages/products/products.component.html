@@ -14,7 +14,7 @@
                     <img [src]="product.imageCover" class="object-cover w-full h-full" [alt]="product.title">
                     <div>
                         @if (isLoggedIn) {
-                        @if (isProductInCart(product._id)) {
+                        @if (isInCart(product._id)) {
                         <div
                             class="absolute bottom-0 left-0 flex items-center justify-center w-full py-2 text-white transition-all duration-300 opacity-0 text- group-hover:opacity-100">
                             <button

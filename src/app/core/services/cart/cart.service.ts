@@ -12,6 +12,26 @@ export class CartService {
   token!: any;
   cartTotalItems: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 
+  private cartState = new BehaviorSubject<{ productId: string; inCart: boolean }[]>([]);
+  cartState$ = this.cartState.asObservable();
+
+  toggleCart(productId: string) {
+    let currentCart = this.cartState.value;
+    const index = currentCart.findIndex(item => item.productId === productId);
+
+    if (index !== -1) {
+      currentCart[index].inCart = !currentCart[index].inCart;
+    } else {
+      currentCart = [...currentCart, { productId, inCart: true }];
+    }
+
+    this.cartState.next(currentCart);
+  }
+
+  isInCart(productId: string): boolean {
+    return this.cartState.value.some(item => item.productId === productId && item.inCart);
+  }
+
   constructor(private _HttpClient: HttpClient, @Inject(PLATFORM_ID) Id: object) {
     if (isPlatformBrowser(Id)) {
       this.token = { token: localStorage.getItem('userToken') || '' };

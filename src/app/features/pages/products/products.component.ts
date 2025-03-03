@@ -31,6 +31,7 @@ export class ProductsComponent {
     })
   }
 
+  cart: { productId: string; inCart: boolean }[] = [];
   productList: Products[] = [];
   searchVal: string = '';
   isLoggedIn: boolean = false;
@@ -54,9 +55,22 @@ export class ProductsComponent {
         }
       })
     }
+    this._CartService.cartState$.subscribe(cart => {
+      this.cart = cart;
+    });
+  }
+
+  toggleCart(event:Event, productId: string) {
+    event.stopPropagation();
+    this._CartService.toggleCart(productId);
+  }
+
+  isInCart(productId: string): boolean {
+    return this._CartService.isInCart(productId);
   }
 
   reloadComponent() {
+    this._CartService.toggleCart(this.currentProductId);
     // this._Router.navigate([], {
     //   relativeTo: this.route,
     //   queryParams: { reload: new Date().getTime() }, // Unique query param
@@ -91,6 +105,8 @@ export class ProductsComponent {
   }
 
   addToCart(event: Event, productID: string) {
+    console.log('hi');
+    
     this.isLoading = true;
     this.currentProductId = productID;
     event.stopPropagation();
@@ -134,6 +150,7 @@ export class ProductsComponent {
 
   getProductCount(productID: string) {
     if (this.isLoggedIn) {
+
       let flag = this.cartList.find(product => product.product._id === productID);
       if (flag)
         return flag.count
@@ -177,7 +194,7 @@ export class ProductsComponent {
     else {
       this.removeSpecificItem(productId);
     }
-    this.cdr.detectChanges();
+    this.reloadComponent();
   }
 
   removeSpecificItem(productId: string) {
@@ -207,6 +224,7 @@ export class ProductsComponent {
         console.log(err);
       }
     });
+    this.reloadComponent();
   }
 
   isProductInWishlist(productId: string) {
