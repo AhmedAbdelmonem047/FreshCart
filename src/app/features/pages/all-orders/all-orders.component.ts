@@ -43,9 +43,6 @@ export class AllOrdersComponent {
       next: (res) => {
         this.orderList = res;
         this.orderList = this.orderList.reverse();
-        console.log(this.orderList);
-        console.log(this.orderList.length);
-
       },
       error: (err) => {
         console.log(err);

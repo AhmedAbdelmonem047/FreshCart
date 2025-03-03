@@ -45,7 +45,6 @@ export class CartComponent {
         this.cartList = res.data.products;
         this.cartId = res.cartId;
         this._CartService.cartTotalItems.next(res.numOfCartItems);
-        console.log(this.cartList);
       },
       error: (err) => {
         console.log(err);
@@ -104,7 +103,6 @@ export class CartComponent {
             timerProgressBar: true,
             toast: true,
           });
-          console.log(res);
         },
         error: (err) => {
           this.isLoading = false;
@@ -130,7 +128,6 @@ export class CartComponent {
       if (result.isConfirmed) {
         this._CartService.clearCart().subscribe({
           next: (res) => {
-            console.log(res);
             this.currentProductId = '';
             this.getUserCart();
           },

@@ -100,7 +100,6 @@ export class ProductsComponent {
     this._CartService.addProductToCart(productID).subscribe({
       next: (res) => {
         this.toggleCart(this.currentProductId);
-        console.log(res);
         this._CartService.cartTotalItems.next(res.numOfCartItems);
         this.isLoading = false;
         Swal.fire({
@@ -124,8 +123,6 @@ export class ProductsComponent {
   }
 
   updateProductQuantity(event: Event, productId: string, count: number) {
-    console.log('desired count', count);
-    console.log('current quantity', this.getProductQuantity(productId));
     event.stopPropagation();
     let quantity: number = this.getProductQuantity(productId);
     if (count > 0) {
@@ -137,7 +134,6 @@ export class ProductsComponent {
             this.toggleCart(this.currentProductId);
           else
             this.removeProduct(productId);
-          console.log('increase count', this.getProductQuantity(this.currentProductId));
           this.isLoading = false;
           this.cartList = res.data.products;
           this._CartService.cartTotalItems.next(res.numOfCartItems);
@@ -153,7 +149,6 @@ export class ProductsComponent {
             timerProgressBar: true,
             toast: true,
           });
-          console.log(res);
         },
         error: (err) => {
           this.isLoading = false;
@@ -172,7 +167,6 @@ export class ProductsComponent {
     this._CartService.removeSpecificItem(productId).subscribe({
       next: (res) => {
         this.removeProduct(this.currentProductId);
-        console.log('decrease count', this.getProductQuantity(this.currentProductId));
         this.isLoading = false;
         this.cartList = res.data.products;
         this._CartService.cartTotalItems.next(res.numOfCartItems);

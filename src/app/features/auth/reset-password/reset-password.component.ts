@@ -71,7 +71,6 @@ export class ResetPasswordComponent {
     this._AuthService.verifyCodeForPassReset(this.codeForm.value).subscribe({
       next: (res) => {
         this.isLoading = false;
-        console.log(res);
         if (res.status == 'Success') {
           this.processStep += 1;
         }

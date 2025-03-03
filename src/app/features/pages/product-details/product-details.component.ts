@@ -99,7 +99,6 @@ export class ProductDetailsComponent {
         this.toggleCart(this.productID);
         this._CartService.cartTotalItems.next(res.numOfCartItems);
         this.isLoading = false;
-        console.log(res);
         Swal.fire({
           color: "#fff",
           background: "#14803d",
@@ -147,7 +146,6 @@ export class ProductDetailsComponent {
             timerProgressBar: true,
             toast: true,
           });
-          console.log(res);
         },
         error: (err) => {
           this.isLoading = false;

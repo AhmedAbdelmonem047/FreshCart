@@ -23,7 +23,6 @@ export class CategoriesComponent {
     this._CategoriesService.getAllCategories().subscribe({
       next: (res) => {
         this.catList = res.data;
-        console.log(this.catList);
       },
       error: (err) => {
         console.log(err);

@@ -27,8 +27,6 @@ export class WishlistComponent {
       next: (res) => {
         this.totalItems = res.count;
         this.wishlistItems = res.data;
-        console.log(res);
-        console.log(this.wishlistItems);
       },
       error: (err) => {
         console.log(err);
@@ -42,7 +40,6 @@ export class WishlistComponent {
         this.totalItems = res.count;
         this.wishlistItems = res.data;
         this.getUserWishlist();
-        console.log(res);
       },
       error: (err) => {
         console.log(err);
@@ -80,7 +77,6 @@ export class WishlistComponent {
         this.totalItems = res.count;
         this.wishlistItems = res.data;
         this.getUserWishlist();
-        console.log(res);
       },
       error: (err) => {
         console.log(err);

@@ -20,7 +20,6 @@ export class CheckoutComponent {
   constructor(private _CheckoutService: CheckoutService, private router: Router, private _ActivatedRoute: ActivatedRoute, private _CartService: CartService) {
     _ActivatedRoute.params.subscribe(res => {
       this.cartId = res['cartId']
-      console.log(this.cartId);
     })
   }
 

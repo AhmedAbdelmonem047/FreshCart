@@ -40,7 +40,6 @@ export class NavbarComponent {
       }
     })
     this.flowbiteService.loadFlowbite(flowbite => {
-      console.log('Flowbite loaded', flowbite);
     });
   }
 

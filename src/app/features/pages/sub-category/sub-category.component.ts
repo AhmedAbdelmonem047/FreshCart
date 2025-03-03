@@ -18,7 +18,6 @@ export class SubCategoryComponent {
   constructor(private _ActivatedRoute: ActivatedRoute, private _CategoriesService: CategoriesService, private _Location: Location) {
     _ActivatedRoute.params.subscribe(res => {
       this.catID = res['catID'];
-      console.log(this.catID);
     })
   }
 
@@ -30,7 +29,6 @@ export class SubCategoryComponent {
     this._CategoriesService.getAllSubCatForSpecificCat(this.catID).subscribe({
       next: (res) => {
         this.subCatList = res.data;
-        console.log(this.subCatList);
       },
       error: (err) => {
         console.log(err);
