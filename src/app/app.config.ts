@@ -13,6 +13,7 @@ import { loaderInterceptor } from './core/interceptor/global-loading/loader.inte
 import { provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideLottieOptions({
