@@ -10,15 +10,19 @@ import { IMAGE_CONFIG } from '@angular/common';
 import { headerInterceptor } from './core/interceptor/header/header.interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { loaderInterceptor } from './core/interceptor/global-loading/loader.interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 
 
+export function playerFactory() {
+  return import('lottie-web');
+}
+
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideLottieOptions({
-      player: () => import('lottie-web'),
-    }),
+    provideAnimations(),
+    provideLottieOptions({ player: playerFactory }),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch(), withInterceptors([headerInterceptor, loaderInterceptor])),
     importProvidersFrom(RouterModule, BrowserAnimationsModule, Router, SweetAlert2Module.forRoot()),

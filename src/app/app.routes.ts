@@ -19,7 +19,7 @@ export const routes: Routes = [
             { path: 'products', loadComponent: () => import('./features/pages/products/products.component').then((c) => c.ProductsComponent), title: 'Products' },
             { path: 'categories', loadComponent: () => import('./features/pages/categories/categories.component').then((c) => c.CategoriesComponent), title: 'Categories' },
             { path: 'subCategory/:catID', loadComponent: () => import('./features/pages/sub-category/sub-category.component').then((c) => c.SubCategoryComponent), title: 'Sub Categories' },
-            { path: 'test', loadComponent: () => import('./shared/components/test/test.component').then((c) => c.TestComponent), title: 'Test' },
+            { path: 'lottie', loadComponent: () => import('./shared/components/lottie-animations/lottie-animations.component').then((c) => c.LottieAnimationsComponent), title: 'lottie' },
         ]
     },
     {
