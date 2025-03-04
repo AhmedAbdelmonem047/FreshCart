@@ -1,3 +1,4 @@
-<ng-container *ngIf="isBrowser">
-    <ng-lottie [options]="options" width="300px" height="300px"></ng-lottie>
+<ng-container *ngIf="isBrowser && isVisible">
+    <ng-lottie [options]="options" width="800px" height="800px"
+        class="fixed z-50 flex items-center justify-center w-full h-screen bg-neutral-800 bg-opacity-70"></ng-lottie>
 </ng-container>
