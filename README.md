@@ -1,59 +1,104 @@
-# Ecommerce
+# FreshCart — E-Commerce Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+FreshCart is a responsive e-commerce storefront built with **Angular 19, TypeScript, and Tailwind CSS**. It includes product browsing, category pages, product details, account screens, and shopping-related routes.
 
-## Development server
+**Live demo:** [fresh-cart-livid-omega.vercel.app](https://fresh-cart-livid-omega.vercel.app)  
+**Repository:** [AhmedAbdelmonem047/FreshCart](https://github.com/AhmedAbdelmonem047/FreshCart)
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+- **Storefront:** home page with home and category sliders, product listings, and shared layout components
+- **Product discovery:** products, brands, categories, subcategories, and product details
+- **Shopping flows:** cart, wishlist, checkout, and order-history routes
+- **Account screens:** login, signup, and password-reset pages
+- **Navigation:** Angular Router with lazy-loaded page components and route guards
+- **User feedback and presentation:** loading spinner, SweetAlert2 dialogs, and Lottie animations
+- **Responsive styling:** Tailwind CSS and Flowbite
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Some shopping and account workflows are guarded by application route guards. The actual data and authentication behaviour depend on the service/API configuration in the project.
 
-## Code scaffolding
+## Tech Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Area | Technologies |
+|---|---|
+| Framework | Angular 19, standalone components |
+| Language | TypeScript |
+| Routing and state/events | Angular Router, RxJS |
+| Styling | Tailwind CSS, Flowbite, SCSS |
+| UI libraries | SweetAlert2, Font Awesome |
+| Animation and carousels | Lottie, `ngx-lottie`, `ngx-owl-carousel-o` |
+| Loading indicator | `ngx-spinner` |
+| Build and tests | Angular CLI, Jasmine, Karma |
+| Rendering support | Angular SSR packages are configured in the project |
 
-```bash
-ng generate component component-name
-```
+## Live Demo
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Visit the deployed application: **[Open FreshCart](https://fresh-cart-livid-omega.vercel.app)**.
 
-```bash
-ng generate --help
-```
+## Getting Started
 
-## Building
+### Prerequisites
 
-To build the project run:
+- Node.js and npm versions compatible with the Angular 19 toolchain
+- A modern browser
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Install and run
 
 ```bash
-ng e2e
+git clone https://github.com/AhmedAbdelmonem047/FreshCart.git
+cd FreshCart
+npm install
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Open `http://localhost:4200/` in your browser. The Angular development server supports live reload while editing source files.
 
-## Additional Resources
+## Available Scripts
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+# Start the development server
+npm start
+
+# Build the application
+npm run build
+
+# Rebuild in development watch mode
+npm run watch
+
+# Run the configured unit-test runner
+npm test
+```
+
+The project also defines an SSR serving script, `npm run serve:ssr:ecommerce`, which expects the corresponding server bundle to have been generated. Run and verify the build locally before using that command.
+
+## Application Routes
+
+| Route | Purpose |
+|---|---|
+| `/home` | Storefront home page |
+| `/products` | Product listing |
+| `/productDetails/:productID` | Product details |
+| `/brands` | Brand listing |
+| `/categories` | Category listing |
+| `/subCategory/:catID` | Subcategory listing |
+| `/cart` | Shopping cart |
+| `/wishlist` | Wishlist |
+| `/checkout/:cartId` | Checkout flow |
+| `/allorders` | Order history |
+| `/login` | Login page |
+| `/signup` | Registration page |
+| `/resetPassword` | Password-reset page |
+
+Routes and behaviour may depend on the guards and services configured in the application. Refer to `src/app/app.routes.ts` for the current routing configuration.
+
+## Build
+
+```bash
+npm run build
+```
+
+Angular writes build output to the configured `dist/` directory. Review the Angular CLI configuration if you need to change output paths or the rendering mode.
+
+## Project Status
+
+This is a frontend portfolio project. It demonstrates component-based UI development, routing, responsive styling, and e-commerce navigation flows. It should be evaluated as a frontend application; it is not a standalone backend service.
